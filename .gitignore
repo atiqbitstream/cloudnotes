@@ -1,0 +1,43 @@
+# .gitignore for a typical project
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Node.js
+node_modules/
+
+# Python
+*.pyc
+*.pyo
+__pycache__/
+
+# Java
+*.class
+*.jar
+*.war
+
+# Build files
+/dist/
+/build/
+
+# IDEs
+.vscode/
+.idea/
+
+# Log files
+*.log
+
+# Temporary files
+*.swp
+*.bak
+*.tmp
+
+# Environment variables
+.env
+
+# npm package lock
+package-lock.json
+
+# Yarn lock file
+yarn.lock
