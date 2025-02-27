@@ -1,0 +1,33 @@
+name: Deploy to Kubernetes
+
+on:
+   push:
+    branches:
+        - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout Code
+              uses: actions/checkout@v2
+
+            - name: Log in to Docker Hub
+              run: echo "${{ secrets.DOCKER_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME}}" --password-stdin
+
+            - name: Build Docker Image
+              run: docker build -t atiqbitstream/cloudnotes:${{github.sha}}
+
+            - name: Push Docker Image
+              run: docker push atiqbitstream/cloudnotes:${{github.sha}} 
+
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+          - name: Set Up Kubeconfig
+            run : echo "${{secrets.KUBECONFIG}}" | base64 --decode > $HOME/.kube/config
+
+          - name: Deploy to Kubernetes
+            run: |
+             kubectl set image deployment/cloudnotes-deployment cloudnotes=atiqbitstream/cloudnotes:${{github.sha}}
