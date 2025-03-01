@@ -30,9 +30,9 @@ jobs:
                 mkdir -p /etc/kube
                 mkdir -p $HOME/.kube
 
-                echo "${{secrets.K8S_CA_CRT}}" | base64 --decode > /etc/kube/ca.crt
-                echo "${{secrets.K8S_CLIENT_CRT}}" | base64 --decode > /etc/kube/client.crt
-                echo "${{secrets.K8S_CLIENT_KEY}}" | base64 --decode > /etc/kube/client.key
+                echo "${{secrets.K8S_CA_CRT}}" | base64 --decode > $HOME/kube_certs/ca.crt
+                echo "${{secrets.K8S_CLIENT_CRT}}" | base64 --decode > $HOME/kube_certs/client.crt
+                echo "${{secrets.K8S_CLIENT_KEY}}" | base64 --decode > $HOME/kube_certs/client.key
                 echo "${{secrets.KUBECONFIG}}" | base64 --decode > $HOME/.kube/config
 
           - name: Deploy to Kubernetes
