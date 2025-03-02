@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: cloudnotes
-        image: cloudnotes:1.0
+        image: atiqbitstream/cloudnotes:afeaf87eec7bc6430462e59ebf51191043a32a3a
         ports:
         - containerPort: 3000
         resources:
