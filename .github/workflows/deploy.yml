@@ -28,11 +28,6 @@ jobs:
           - name: Set Up Kubeconfig
             run : |
                 mkdir -p $HOME/.kube
-                mkdir -p $HOME/kube_certs
-
-                echo "${{secrets.K8S_CA_CRT}}" | base64 --decode > $HOME/kube_certs/ca.crt
-                echo "${{secrets.K8S_CLIENT_CRT}}" | base64 --decode > $HOME/kube_certs/client.crt
-                echo "${{secrets.K8S_CLIENT_KEY}}" | base64 --decode > $HOME/kube_certs/client.key
                 echo "${{secrets.KUBECONFIG}}" | base64 --decode > $HOME/.kube/config
 
           - name: Deploy to Kubernetes
