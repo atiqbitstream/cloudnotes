@@ -39,7 +39,10 @@ jobs:
             run: doctl auth init --access-token ${{secrets.DIGITALOCEAN_ACCESS_TOKEN}}
 
           - name: Set Up Kubeconfig for DigitalOcean Cluster
-            run: doctl kubernetes cluster kubeconfig save 226d7eeb-e93e-4741-a1e9-7c9af3ee4140
+            run: |
+                mkdir -p $HOME/.kube
+                sudo snap connect doctl:kube-config
+                doctl kubernetes cluster kubeconfig save 226d7eeb-e93e-4741-a1e9-7c9af3ee4140
 
           - name: Verify Kubernetes Connection
             run: kubectl get nodes
