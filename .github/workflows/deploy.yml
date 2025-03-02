@@ -30,10 +30,10 @@ jobs:
 
           - name: Install DigitalOcean CLI (doctl)
             run: |
-             sudo curl -sL https://github.com/digitalocean/doctl/releases/latest/download/doctl-$(uname -s)-$(uname -m) -o doctl
-             sudo chmod +x doctl
-             sudo mv doctl /usr/local/bin/
-             doctl version
+                sudo apt update
+                sudo apt install -y snapd
+                sudo snap install doctl
+                doctl version
 
           - name: Authenticate with DigitalOcean
             run: doctl auth init --access-token ${{secrets.DIGITALOCEAN_ACCESS_TOKEN}}
