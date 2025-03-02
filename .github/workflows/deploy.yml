@@ -25,11 +25,29 @@ jobs:
         needs: build
         runs-on: ubuntu-latest
         steps:
+          - name: checkout code
+            uses: actions/checkout@v2
+
+          - name: Install DigitalOcean CLI (doctl)
+            run: |
+             sudo curl -sL https://github.com/digitalocean/doctl/releases/latest/download/doctl-$(uname -s)-$(uname -m) -o /usr/local/bin/doctl
+             sudo chmod +x /usr/local/bin/doctl
+
+          - name: Authenticate with DigitalOcean
+            env:
+              DIGITALOCEAN_ACCESS_TOKEN: ${{secrets.DIGITALOCEAN_ACCESS_TOKEN}}
+            run: doctl auth init --access-token $DIGITALOCEAN_ACCESS_TOKEN
+
+          - name: Set Up Kubeconfig for DigitalOcean Cluster
+            run: doctl kubernetes cluster kubeconfig save 226d7eeb-e93e-4741-a1e9-7c9af3ee4140
+
+          - name: Verify Kubernetes Connection
+            run: kubectl get nodes
+
           - name: Set Up Kubeconfig
             run : |
                 mkdir -p $HOME/.kube
                 echo "${{secrets.KUBECONFIG}}" | base64 --decode > $HOME/.kube/config
 
           - name: Deploy to Kubernetes
-            run: | 
-                 kubectl set image deployment/cloudnotes-deployment cloudnotes=atiqbitstream/cloudnotes:${{github.sha}}
+            run:  kubectl set image deployment/cloudnotes-deployment cloudnotes=atiqbitstream/cloudnotes:${{github.sha}}
