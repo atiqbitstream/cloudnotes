@@ -53,4 +53,6 @@ app.delete('/notes/:id',(req,res)=>{
     res.status(204).send();
 })
 
-app.listen(PORT, ()=>console.log(`server running on http://localhost:${PORT}`))
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`server running on http://0.0.0.0:${PORT}`);
+});
