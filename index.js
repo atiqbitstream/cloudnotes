@@ -53,6 +53,14 @@ app.delete('/notes/:id',(req,res)=>{
     res.status(204).send();
 })
 
+app.get('/health', (req, res) => {
+    res.status(200).send('OK');
+  });
+  
+  app.get('/ready', (req, res) => {
+    res.status(200).send('OK');
+  });
+
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`server running on http://0.0.0.0:${PORT}`);
 });
