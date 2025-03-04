@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: cloudnotes
-        image: atiqbitstream/cloudnotes:afeaf87eec7bc6430462e59ebf51191043a32a3a
+        image: atiqbitstream/cloudnotes:latest
         ports:
         - containerPort: 3000
         resources:
@@ -39,11 +39,11 @@ spec:
           httpGet:
             path: /health
             port: 3000
-          initialDelaySeconds: 10
+          initialDelaySeconds: 30
           periodSeconds: 20
         readinessProbe:
           httpGet:
             path: /ready
             port: 3000
-          initialDelaySeconds: 10
+          initialDelaySeconds: 30
           periodSeconds: 20
